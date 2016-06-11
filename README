@@ -1,0 +1,59 @@
+idan0610
+
+
+
+
+=============================
+=      File description     =
+=============================
+AvlTree.java - implements the AVL Tree.
+Node.java - implements the Node class for the AVL Tree nodes.
+AvlIterator.java - implements the Iterator of the AVL Tree.
+QUESTIONS - answers to the questions.
+
+
+=============================
+=          Design           =
+=============================
+The main class is AvlTre implements Iterable and contains all the required API and some helper methods.
+The class Node represents the items of the AVL tree. Each Node saves the left and right children, the parent 
+and its height. Every of these data members has its get and set methods used by AvlTree.
+The class AvlIterator implements Iterator is used to initiate an iterator on the AVL tree and has hasNext()
+method checking if the next node is not null, and next() that returns the next node.
+
+
+=============================
+=  Implementation details   =
+=============================
+The add() method first search for newValue on the tree until it reaches null. The search start from the root.
+If the current node value is bigger then newValue, go right and if it smaller, go left. If the current value
+is equal to newValue, stop the search and the running of add() and return false (because the AvlTree does not
+permit duplicate values). After the current node reaches null, create a new node for newValue and put it on 
+that position. Then go from the new node to the root and update heights, and check if a violation was created.
+If so, fix the violation (Using updateTree() and fixAvlTree()). Finally increase the size of the tree by 1
+and return true.
+
+The delete() method also first search for toDelete from the root (like add()) and returns false if the 
+current node reaches null. If toDelete was found, check how many children the node of toDelete has. If there
+are no children, just remove the node from the tree. If there is 1 child, link the child with the parent and
+remove the node. If there are 2 children, find the successor of the node and replace between it and the node.
+Then the node has 1 child or no children, and handles it like the first cases.
+After the deletion, also update heights from the deleted node to the root, and if a violation was found, fix
+it (like add).
+The delete() method uses a helper method called findSuccessor() to find the successor of a given node.
+
+Both the add() and delete() methods using updateTree() to update the heights of the nodes on the tree from
+the given node to the root. If a violation was found, the add() and delete() methods use fixAvlTree() that
+check the violation type of the given node and fix it accordingly. It uses the helper method rotate() to make
+the required rotations for each violation type.
+
+
+=============================
+=    Answers to questions   =
+=============================
+The following input to add() by order will create an AVL tree of height 4:
+5, 3, 8, 2, 4, 7, 10, 1, 6, 9, 11, 12
+
+In that order the AVL tree has no violations during adding the numbers at all in will stay balanced all the
+time.
+
